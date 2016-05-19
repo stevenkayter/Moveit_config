@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="joint_target">
+ <xacro:macro name="kinect2_xacro">
+  <link name="{prefix}_target_base" />
+  <link name="{prefix}_target_end">
+	<visual>
+    	  <geometry>
+    	    <cylinder length="0.4" radius="0.1"/>
+    	  </geometry>
+    	  <material name="blue">
+    	    <color rgba="0 0 .8 1"/>
+    	  </material>
+    </visual>
+  </link>
+
+  <joint name="{prefix}_joint1" type="revolute">
+    <parent link="{prefix}_target_base"/>
+    <child link="{prefix}_target_end"/>
+	<limit effort="1000.0" lower="0" upper="3" velocity="0.5"/>
+	<origin xyz="0 0 0" rpy="0 0 1.57" />
+	<axis xyz="0 0 1" />
+  </joint>
+ </xacro:macro>
+</robot>

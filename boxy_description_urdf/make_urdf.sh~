@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rosrun xacro xacro.py ./boxy_description_original.urdf.xacro > ./boxy_description.urdf

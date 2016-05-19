@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rosrun xacro xacro.py ./ur3_joint_limited_robot.urdf.xacro > ./ur3_joint_limited_robot.urdf
