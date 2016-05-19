@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>ur3_head</name>
+  <name>boxy_description_urdf</name>
   <version>0.0.0</version>
-  <description>The ur3_head package</description>
+  <description>The boxy_description_urdf package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/ur3_head</url> -->
+  <!-- <url type="website">http://wiki.ros.org/boxy_description_urdf</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
