@@ -101,6 +101,10 @@ def move_group_interface():
     ## Set the planner for Moveit (yo)
     group.set_planner_id("RRTConnectkConfigDefault")
 #    group.set_planner_id("ESTkConfigDefault")
+#    group.set_planner_id("KPIECEkConfigDefault")
+#    group.set_planner_id("PRMkConfigDefault")
+#    group.set_planner_id("PRMstarkConfigDefault")
+#    group.set_planner_id("RRTkConfigDefault")
 
     ## Setting tolerance (yo) --------
     group.set_goal_tolerance(0.1)
@@ -118,10 +122,10 @@ def move_group_interface():
 
     pose_target = geometry_msgs.msg.PoseStamped()
     pose_target.header.frame_id = 'base_footprint' # (yo)
-##    pose_target.pose.orientation.x = -0.609  #0.5 # (yo)
-##    pose_target.pose.orientation.y = 0.609 #0.5 # (yo)
-##    pose_target.pose.orientation.z = -0.387  #0.5 # (yo)
-##    pose_target.pose.orientation.w = 0.327  #0.5 # (yo)
+#    pose_target.pose.orientation.x = -0.609  #0.5 # (yo)
+#    pose_target.pose.orientation.y = 0.609 #0.5 # (yo)
+#    pose_target.pose.orientation.z = -0.387  #0.5 # (yo)
+#    pose_target.pose.orientation.w = 0.327  #0.5 # (yo)
     pose_target.pose.position.x = 1.132
     pose_target.pose.position.y = -0.156
     pose_target.pose.position.z = 1.731
@@ -144,54 +148,54 @@ def move_group_interface():
     ## You can ask RVIZ to visualize a plan (aka trajectory) for you.  But the
     ## group.plan() method does this automatically so this is not that useful
     ## here (it just displays the same trajectory again).
-##    print "============ Visualizing plan1"
-##    display_trajectory = moveit_msgs.msg.DisplayTrajectory()
-##
-##    display_trajectory.trajectory_start = robot.get_current_state()
-##    display_trajectory.trajectory.append(plan1)
-##    display_trajectory_publisher.publish(display_trajectory);
-##
-##    print "============ Waiting while plan1 is visualized (again)..."
-##    rospy.sleep(5)
-##
-##
-##    ## Moving to a pose goal
-##    ## ^^^^^^^^^^^^^^^^^^^^^
-##    ##
-##    ## Moving to a pose goal is similar to the step above
-##    ## except we now use the go() function. Note that
-##    ## the pose goal we had set earlier is still active 
-##    ## and so the robot will try to move to that goal. We will
-##    ## not use that function in this tutorial since it is 
-##    ## a blocking function and requires a controller to be active
-##    ## and report success on execution of a trajectory.
-##
-##    # Uncomment below line when working with a real robot
-##    # group.go(wait=True)
-##
-##    ## Planning to a joint-space goal 
-##    ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-##    ##
-##    ## Let's set a joint space goal and move towards it. 
-##    ## First, we will clear the pose target we had just set.
-##
-##    group.clear_pose_targets()
-##
-##    ## Then, we will get the current set of joint values for the group
-##    group_variable_values = group.get_current_joint_values()
-##    print "============ Joint values: ", group_variable_values
-##
-##    ## Now, let's modify one of the joints, plan to the new joint
-##    ## space goal and visualize the plan
-##    group_variable_values[0] = 1.0
-##    group.set_joint_value_target(group_variable_values)
-##
-##    plan2 = group.plan()
-##
-##    print "============ Waiting while RVIZ displays plan2..."
-##    rospy.sleep(5)
-##
-##
+    print "============ Visualizing plan1"
+    display_trajectory = moveit_msgs.msg.DisplayTrajectory()
+
+    display_trajectory.trajectory_start = robot.get_current_state()
+    display_trajectory.trajectory.append(plan1)
+    display_trajectory_publisher.publish(display_trajectory);
+
+    print "============ Waiting while plan1 is visualized (again)..."
+    rospy.sleep(5)
+
+
+    ## Moving to a pose goal
+    ## ^^^^^^^^^^^^^^^^^^^^^
+    ##
+    ## Moving to a pose goal is similar to the step above
+    ## except we now use the go() function. Note that
+    ## the pose goal we had set earlier is still active 
+    ## and so the robot will try to move to that goal. We will
+    ## not use that function in this tutorial since it is 
+    ## a blocking function and requires a controller to be active
+    ## and report success on execution of a trajectory.
+
+    # Uncomment below line when working with a real robot
+    # group.go(wait=True)
+
+    ## Planning to a joint-space goal 
+    ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ##
+    ## Let's set a joint space goal and move towards it. 
+    ## First, we will clear the pose target we had just set.
+
+    group.clear_pose_targets()
+
+    ## Then, we will get the current set of joint values for the group
+    group_variable_values = group.get_current_joint_values()
+    print "============ Joint values: ", group_variable_values
+
+    ## Now, let's modify one of the joints, plan to the new joint
+    ## space goal and visualize the plan
+    group_variable_values[0] = 1.0
+    group.set_joint_value_target(group_variable_values)
+
+    plan2 = group.plan()
+
+    print "============ Waiting while RVIZ displays plan2..."
+    rospy.sleep(5)
+
+
 ##    ## Cartesian Paths
 ##    ## ^^^^^^^^^^^^^^^
 ##    ## You can plan a cartesian path directly by specifying a list of waypoints 
