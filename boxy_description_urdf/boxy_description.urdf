@@ -442,12 +442,12 @@
   </joint>
   <link name="neck_look_target">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.08"/>
+      <origin rpy="0 0 0" xyz="0 0 0.205"/>
       <geometry>
-        <cylinder length="0.1" radius="0.01"/>
+        <cylinder length="0.35" radius="0.035"/>
       </geometry>
       <material name="blue">
-        <color rgba="0 0.1 0.8 1"/>
+        <color rgba="0.2 0.2 0.7 1"/>
       </material>
     </visual>
   </link>

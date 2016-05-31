@@ -23,7 +23,7 @@
 					<cylinder length="${Length}" radius="${R}"/>
 				</geometry>
 				<material name="blue">
-					<color rgba="0 0.1 0.8 1"/>
+					<color rgba="0 0.2 0.7 1"/>
 				</material>
 			</visual>
 		</link>
@@ -38,26 +38,27 @@
 		</joint>
 
 		<joint name="head2" type="continuous">
-			<parent link="${prefix}_look_target"/>
-			<child link="${prefix}_look_target_2"/>
+			<parent link="${prefix}_look_target_2"/>
+			<child link="${prefix}_look_target_3"/>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<axis xyz="0 1 0" />
 		</joint>
 
 		<joint name="head3" type="continuous">
-			<parent link="${prefix}_look_target"/>
-			<child link="${prefix}_look_target_2"/>
+			<parent link="${prefix}_look_target_3"/>
+			<child link="${prefix}_look_target_4"/>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<axis xyz="1 0 0" />
 		</joint>
 
-		<link name="${prefix}_look_target_2">
-		</link> 
+		<link name="${prefix}_look_target_2"/>
+		<link name="${prefix}_look_target_3"/>
+		<link name="${prefix}_look_target_4"/>
 
 	</xacro:macro>
 
-	<xacro:property name="R" value="0.01" />
-	<xacro:property name="Length" value="0.1" />
+	<xacro:property name="R" value="0.03" />
+	<xacro:property name="Length" value="0.35" />
 
 
 </robot> 
