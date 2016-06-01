@@ -1,12 +1,4 @@
 controller_list:
-  - name: fake_neck_controller
-    joints:
-      - neck_shoulder_pan_joint
-      - neck_shoulder_lift_joint
-      - neck_elbow_joint
-      - neck_wrist_1_joint
-      - neck_wrist_2_joint
-      - neck_wrist_3_joint
   - name: fake_right_arm_controller
     joints:
       - right_arm_0_joint
@@ -25,9 +17,6 @@ controller_list:
       - left_arm_4_joint
       - left_arm_5_joint
       - left_arm_6_joint
-  - name: fake_kinekt2_controller
-    joints:
-      []
   - name: fake_left_arm_gripper_controller
     joints:
       - left_gripper_base_gripper_left_joint
@@ -48,3 +37,17 @@ controller_list:
       - head1
       - head2
       - head3
+  - name: fake_kinect_target_actuator_controller
+    joints:
+      - head3
+  - name: fake_neck_controller
+    joints:
+      - neck_shoulder_pan_joint
+      - neck_shoulder_lift_joint
+      - neck_elbow_joint
+      - neck_wrist_1_joint
+      - neck_wrist_2_joint
+      - neck_wrist_3_joint
+  - name: fake_Kinect2_sensor_controller
+    joints:
+      []

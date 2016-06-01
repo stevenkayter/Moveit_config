@@ -4,16 +4,15 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
         - /MotionPlanning1
         - /MotionPlanning1/Scene Geometry1
         - /MotionPlanning1/Scene Robot1
         - /MotionPlanning1/Planning Request1
+        - /MotionPlanning1/Planning Metrics1
         - /MotionPlanning1/Planned Path1
         - /TF1/Frames1
-        - /TF1/Tree1
       Splitter Ratio: 0.74256
-    Tree Height: 477
+    Tree Height: 502
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -272,6 +271,18 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          neck_look_target_2:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          neck_look_target_3:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          neck_look_target_4:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           neck_shoulder_link:
             Alpha: 1
             Show Axes: false
@@ -463,7 +474,7 @@ Visualization Manager:
         Show Workspace: false
         Start State Alpha: 1
         Start State Color: 0; 255; 0
-      Planning Scene Topic: /planning_scene
+      Planning Scene Topic: move_group/monitored_planning_scene
       Robot Description: robot_description
       Scene Geometry:
         Scene Alpha: 1
@@ -683,6 +694,18 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          neck_look_target_2:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          neck_look_target_3:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          neck_look_target_4:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           neck_shoulder_link:
             Alpha: 1
             Show Axes: false
@@ -942,6 +965,12 @@ Visualization Manager:
         neck_forearm_link:
           Value: false
         neck_look_target:
+          Value: false
+        neck_look_target_2:
+          Value: false
+        neck_look_target_3:
+          Value: false
+        neck_look_target_4:
           Value: true
         neck_shoulder_link:
           Value: false
@@ -1047,7 +1076,10 @@ Visualization Manager:
                                       head_mount_kinect2_rgb_optical_frame:
                                         {}
                                   neck_look_target:
-                                    {}
+                                    neck_look_target_2:
+                                      neck_look_target_3:
+                                        neck_look_target_4:
+                                          {}
               torso_base_link:
                 {}
               triangle_base_link:
@@ -1119,7 +1151,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_footprint
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -1131,36 +1163,36 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 8.69477
+      Distance: 3.38757
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -2.62594
-        Y: -1.84069
-        Z: -3.79301e-06
+        X: -0.233998
+        Y: -0.653266
+        Z: 9.38774e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.199797
+      Pitch: 0.759797
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 0.491788
+      Yaw: 0.66676
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 722
+  Height: 747
   Help:
     collapsed: false
   Hide Left Dock: false
-  Hide Right Dock: true
+  Hide Right Dock: false
   Motion Planning:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000001000000000000028d0000028efc0200000004fb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fc000000280000028e000001d50100001bfa000000000100000002fb000000100044006900730070006c0061007900730100000000ffffffff0000016a00fffffffb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000000000002a20000026e00ffffff0000028d0000028e00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002a2000002a7fc0200000004fb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fc00000028000002a7000001d50100001bfa000000000100000002fb000000100044006900730070006c0061007900730100000000ffffffff0000016a00fffffffb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000000000002a20000026e00ffffff00000279000002a700000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1312
-  X: 44
-  Y: 12
+  Width: 1313
+  X: 53
+  Y: 21

@@ -5,4 +5,4 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/boxy_description.srdf
   CONFIG:
-    generated_timestamp: 1462796123
+    generated_timestamp: 1464688095

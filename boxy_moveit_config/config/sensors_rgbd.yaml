@@ -1,0 +1,10 @@
+sensors: 
+ - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+   point_cloud_topic: /head_mount_kinect/depth_registered/points
+   max_range: 5.0
+   frame_subsample: 1
+   point_subsample: 1
+
+# sensor_plugin: the name of the plugin that should be loaded to perform the octomap updating
+# point_could_topic: The name of the topic on which point cloud data is being broadcast
+# max_range: The max range (in m) of the sensor
