@@ -469,7 +469,7 @@ Visualization Manager:
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
         Planning Group: Kinect2_Target
-        Query Goal State: true
+        Query Goal State: false
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 1
@@ -1163,16 +1163,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.38757
+      Distance: 4.24937
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.233998
-        Y: -0.653266
-        Z: 9.38774e-07
+        X: 0.843365
+        Y: -0.496412
+        Z: 4.61937e-07
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 0.759797

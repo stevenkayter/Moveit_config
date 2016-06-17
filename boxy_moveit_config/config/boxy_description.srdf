@@ -16,7 +16,7 @@
         <chain base_link="calib_left_arm_base_link" tip_link="left_arm_adapter_fwa050_wsg50_frame_out" />
     </group>
     <group name="left_arm_gripper">
-        <link name="left_gripper_base_link" />x
+        <link name="left_gripper_base_link" />
         <link name="left_gripper_gripper_left_link" />
         <link name="left_gripper_finger_left_link" />
         <link name="left_gripper_gripper_right_link" />
@@ -102,7 +102,7 @@
     <end_effector name="right_eef" parent_link="right_arm_adapter_fwa050_wsg50_frame_out" group="right_arm_gripper" />
     <end_effector name="left_eef" parent_link="left_arm_adapter_fwa050_wsg50_frame_out" group="left_arm_gripper" />
     <end_effector name="neck_eef" parent_link="neck_look_target_4" group="kinect_target_actuator" />
-    <end_effector name="kinect_sensor_eef" parent_link="neck_adapter_iso50_kinect2_frame_out" group="neck" />
+    <end_effector name="kinect_sensor_eef" parent_link="neck_adapter_iso50_kinect2_frame_in" group="neck" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="FixedBase" type="planar" parent_frame="world" child_link="base_footprint" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->

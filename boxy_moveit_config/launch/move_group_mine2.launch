@@ -1,0 +1,9 @@
+<launch>
+
+  <include file="$(find boxy_moveit_config)/launch/demo.launch"/>
+
+  <node name="move_group_interface" pkg="boxy_moveit_config" type="kinect_controller2.py" respawn="false" output="screen">
+type="kinect_planner2.py" respawn="false" output="screen">
+  </node>
+
+</launch>
