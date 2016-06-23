@@ -1,0 +1,10 @@
+Error with the stl
+
+MoveIt has problems loading .stl files created with some versions of inventor.
+
+	[ INFO] [1466671879.406649075]: Loading robot model 'boxy_description'...
+	*** Error in `/opt/ros/indigo/lib/moveit_ros_move_group/move_group': malloc(): 		memory corruption: 0x00000000021d2210 ***
+	[move_group-5] process has died [pid 8443, exit code -6, cmd /opt/ros/indigo/	lib/moveit_ros_move_group/move_group --debug __name:=move_group __log:=/home/mvargas/.ros/log/b28c0d5a-1e85-11e6-84eb-a0369f1cd354/move_group-5.log].
+	log file: /home/mvargas/.ros/log/b28c0d5a-1e85-11e6-84eb-a0369f1cd354/move_group-5*.log
+
+To solve it, the stl are "transformed" to stl using ctmconv. A small code that does this automatically is stl_replace.py found in boxy_moveit_config/src/
