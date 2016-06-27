@@ -1,5 +1,7 @@
 controller_list:
-  - name: fake_right_arm_controller
+  - name: right_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - right_arm_0_joint
       - right_arm_1_joint
@@ -8,7 +10,9 @@ controller_list:
       - right_arm_4_joint
       - right_arm_5_joint
       - right_arm_6_joint
-  - name: fake_left_arm_controller
+  - name: left_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - left_arm_0_joint
       - left_arm_1_joint
@@ -17,15 +21,21 @@ controller_list:
       - left_arm_4_joint
       - left_arm_5_joint
       - left_arm_6_joint
-  - name: fake_left_arm_gripper_controller
+  - name: left_arm_gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - left_gripper_base_gripper_left_joint
       - left_gripper_base_gripper_right_joint
-  - name: fake_right_arm_gripper_controller
+  - name: right_arm_gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - right_gripper_base_gripper_left_joint
       - right_gripper_base_gripper_right_joint
-  - name: fake_Kinect2_Target_controller
+  - name: Kinect2_Target_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - neck_shoulder_pan_joint
       - neck_shoulder_lift_joint
@@ -37,10 +47,14 @@ controller_list:
       - head1
       - head2
       - head3
-  - name: fake_kinect_target_actuator_controller
+  - name: kinect_target_actuator_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - head3
-  - name: fake_neck_controller
+  - name: neck_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       - neck_shoulder_pan_joint
       - neck_shoulder_lift_joint
@@ -48,6 +62,8 @@ controller_list:
       - neck_wrist_1_joint
       - neck_wrist_2_joint
       - neck_wrist_3_joint
-  - name: fake_Kinect2_sensor_controller
+  - name: Kinect2_sensor_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     joints:
       []

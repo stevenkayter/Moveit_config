@@ -29,7 +29,7 @@ def kinect_pose_definition():
             pose_target.pose.position.x =  1 
             pose_target.pose.position.y = -0.4 
             pose_target.pose.position.z = 1.4
-        # Publishe desired pose
+        # Publish desired pose
         pose_publisher.publish(pose_target)
         x=x+1
 

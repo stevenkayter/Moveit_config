@@ -2,6 +2,9 @@
 
   <include file="$(find boxy_moveit_config)/launch/planning_context.launch" />
 
+	<!-- ========================= Added by me ===================== -->
+	<include file="$(find boxy_moveit_config)/launch/boxy_description_moveit_controller_manager.launch.xml"/>
+
   <!-- GDB Debug Option -->
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
@@ -27,7 +30,7 @@
 
   <!-- Trajectory Execution Functionality -->
   <include ns="move_group" file="$(find boxy_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_manage_controllers" value="true" />
+    <arg name="moveit_manage_controllers" value="true"/>
     <arg name="moveit_controller_manager" value="boxy_description" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
   </include>

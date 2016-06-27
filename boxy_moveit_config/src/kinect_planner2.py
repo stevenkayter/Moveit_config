@@ -7,9 +7,23 @@ import moveit_commander
 import moveit_msgs.msg
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
+from control_msgs.msg import *
+from trajectory_msgs.msg import *
 
 fresh_data = False
 pose_target = PoseStamped()
+
+JOINT_NAMES = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint',
+               'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint',  'joint_end', 'head1',
+               'head2', 'head3', 'triangle_base_joint', 'left_arm_0_joint', 'left_arm_1_joint',
+               'left_arm_2_joint', 'left_arm_3_joint', 'left_arm_4_joint', 'left_arm_5_joint',
+               'left_arm_6_joint', 'left_gripper_base_gripper_left_joint',
+               'left_gripper_base_gripper_right_joint', 'right_arm_0_joint', 'right_arm_1_joint',
+               'right_arm_2_joint', 'right_arm_3_joint', 'right_arm_4_joint', 'right_arm_5_joint',
+               'right_arm_6_joint','right_gripper_base_gripper_left_joint',
+               'right_gripper_base_gripper_right_joint']
+
+client = None
 
 def callback(data):
     global pose_target
@@ -17,6 +31,11 @@ def callback(data):
     pose_target = data   
     print "------------- Target pose: ", data
     fresh_data = True
+
+def move(plan_target):
+    goal=FollowJointTrajectoryGoal()
+    goal.trajectory = JointTrajectory(plan_target)
+    goal.trajectory.joint_names = JOINT_NAMES
 
 def kinect_planner():
     global fresh_data
@@ -38,7 +57,7 @@ def kinect_planner():
     group = moveit_commander.MoveGroupCommander("Kinect2_Target")
     group_left_arm = moveit_commander.MoveGroupCommander("left_arm")
     group_right_arm = moveit_commander.MoveGroupCommander("right_arm")
-    group_kinect = moveit_commander.MoveGroupCommander("neck")
+    #group_kinect = moveit_commander.MoveGroupCommander("neck")
     print "===================== Here 3 ======================="
     
     
@@ -47,13 +66,15 @@ def kinect_planner():
     display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
                                         moveit_msgs.msg.DisplayTrajectory, queue_size=5)
 
-    
-    ## Set the planner for Moveit 
+    # Publish the trajectory used by the UR3
+    trajectory_publisher = rospy.Publisher('/follow_joint_trajectory/planned_path',
+                                    trajectory_msgs.msg.JointTrajectory, queue_size=5)
+    # Set the planner for Moveit
     group.set_planner_id("RRTConnectkConfigDefault")
     group.set_planning_time(5)
     group.set_pose_reference_frame('base_footprint')
     
-    ## Setting tolerance 
+    # Setting tolerance
     group.set_goal_tolerance(0.03)
     #    group.set_num_planning_attempts(10)
     
@@ -67,9 +88,15 @@ def kinect_planner():
     group_left_arm_values = group_left_arm.get_current_joint_values()
     group_right_arm_values = group_right_arm.get_current_joint_values()
     group_kinect_values = group_kinect.get_current_joint_values()
+
+    # Talking to the robot
+    client = actionlib.SimpleActionClient('follow_joint_trajectory', FollowJointTrajectoryAction)
+    print "Waiting for server..."
+    client.wait_for_server()
+    print "Connected to server"
     
     while not rospy.is_shutdown():
-        if fresh_data == True: #If a new pose ir received, plan.
+        if fresh_data == True: #If a new pose is received, plan.
         
             # Update arms position
             group_left_arm_values = group_left_arm.get_current_joint_values()
@@ -79,12 +106,26 @@ def kinect_planner():
             group.set_pose_target(pose_target)
             plan_target = group.plan()
             group.go(wait=True)
+
+            move(plan_target)
+            client.send_goal(goal)
+
+            # Publish trajectory
+            trajectory_publisher.publish(plan_target)
+
+            try:
+                client.wait_for_result()
+            except KeyboardInterrupt:
+                client.cancel_goal()
+                raise
             
             rate.sleep()
     
         fresh_data = False
     
         rate.sleep()
+
+
 
 
 if __name__=='__main__':
