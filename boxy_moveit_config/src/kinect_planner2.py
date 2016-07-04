@@ -9,6 +9,7 @@ from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 from control_msgs.msg import *
 from trajectory_msgs.msg import *
+import roslib; roslib.load_manifest('ur_driver')
 
 fresh_data = False
 pose_target = PoseStamped()
@@ -57,7 +58,7 @@ def kinect_planner():
     group = moveit_commander.MoveGroupCommander("Kinect2_Target")
     group_left_arm = moveit_commander.MoveGroupCommander("left_arm")
     group_right_arm = moveit_commander.MoveGroupCommander("right_arm")
-    #group_kinect = moveit_commander.MoveGroupCommander("neck")
+    group_kinect = moveit_commander.MoveGroupCommander("neck")
     print "===================== Here 3 ======================="
     
     
@@ -67,8 +68,8 @@ def kinect_planner():
                                         moveit_msgs.msg.DisplayTrajectory, queue_size=5)
 
     # Publish the trajectory used by the UR3
-    trajectory_publisher = rospy.Publisher('/follow_joint_trajectory/planned_path',
-                                    trajectory_msgs.msg.JointTrajectory, queue_size=5)
+   # trajectory_publisher = rospy.Publisher('/follow_joint_trajectory/planned_path',
+    #                                trajectory_msgs.msg.JointTrajectory, queue_size=5)
     # Set the planner for Moveit
     group.set_planner_id("RRTConnectkConfigDefault")
     group.set_planning_time(5)
@@ -105,16 +106,17 @@ def kinect_planner():
             # Set the target pose and generate a plan
             group.set_pose_target(pose_target)
             plan_target = group.plan()
-            group.go(wait=True)
 
-            move(plan_target)
-            client.send_goal(goal)
 
             # Publish trajectory
             trajectory_publisher.publish(plan_target)
 
             try:
+                group.go(wait=True)
+                move(plan_target)
+                client.send_goal(goal)
                 client.wait_for_result()
+
             except KeyboardInterrupt:
                 client.cancel_goal()
                 raise

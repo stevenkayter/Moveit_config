@@ -22,4 +22,5 @@ OTHER_FILES += \
     ../src/kinect_planner2.py \
     ../src/move_group_interface.py \
     ../launch/move_group_mine3.launch \
-    ../launch/demo.launch
+    ../launch/demo.launch \
+    ../launch/move_group.launch

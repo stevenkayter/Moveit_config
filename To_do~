@@ -20,4 +20,3 @@ UR3 is listening to the topics:
 	/follow_joint_trajectory/status
 
 set the topics of my move_group to these ones, to execute trajectories in the real robot
-

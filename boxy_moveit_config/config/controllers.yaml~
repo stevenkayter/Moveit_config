@@ -1,6 +1,6 @@
 controller_list:
 
-  - name: /Kinect2_Target_controller
+  - name: Kinect2_Target_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
