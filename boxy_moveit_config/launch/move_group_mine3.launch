@@ -1,8 +1,13 @@
 <launch>
+ <!-- ======== START moveit_planning_execution.launch ======== -->
+ <!-- From the moveit_planning_execution.launch, added: -->
+ <rosparam command="load" file="$(find boxy_moveit_config)/config/joint_names.yaml"/>
 
-  <node name="move_group_interface" pkg="boxy_moveit_config"
-type="kinect_planner2.py" respawn="false" output="screen">
-  </node>
+ <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
+ <!--  - if sim=false, a robot_ip argument is required -->
+ <arg name="sim" default="false" />
+ <arg name="robot_ip" unless="$(arg sim)" />
+ <!-- ========= END moveit_planning_execution.launch ========= -->
 
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
@@ -12,6 +17,32 @@ type="kinect_planner2.py" respawn="false" output="screen">
     <arg name="load_robot_description" value="true"/>
   </include>
 
+  <!-- ======== START moveit_planning_execution.launch ======== -->
+  <!-- run the robot simulator and action interface nodes -->
+  <group if="$(arg sim)">
+    <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
+  </group>
+
+  <!-- ========================================================= -->
+  <!-- run the "real robot" interface nodes -->
+  <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
+  <!--   - replace these calls with appropriate robot-specific calls or launch files -->
+  <!--<group unless="$(arg sim)">
+    <include file="$(find [robot_interface_pkg])/launch/robot_interface.launch" >
+      <arg name="robot_ip" value="$(arg robot_ip)"/>
+    </include>
+  </group> -->
+  <group unless="$(arg sim)">
+    <include file="$(find ur_modern_driver)/launch/ur3_bringup.launch" >
+      <arg name="robot_ip" value="$(arg robot_ip)"/>
+    </include>
+  </group>
+  <!-- ========================================================= -->
+   <!-- ========= END moveit_planning_execution.launch ========= -->
+
+  <!-- publish the robot state (tf transforms) -->
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+
   <!-- If needed, broadcast static tf for robot root -->
   <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world base_footprint 100" />
   <!-- Given the published joint states, publish tf for the robot links -->
@@ -20,7 +51,6 @@ type="kinect_planner2.py" respawn="false" output="screen">
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find boxy_moveit_config)/launch/move_group.launch">
     <arg name="allow_trajectory_execution" value="true"/>
-<!--    <arg name="fake_execution" value="true"/> -->
     <arg name="fake_execution" value="false"/>
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
@@ -33,5 +63,9 @@ type="kinect_planner2.py" respawn="false" output="screen">
   </include>
 
   <include file="$(find iai_boxy_bringup)/launch/boxy_ur3_test.launch"/>
+
+  <node name="move_group_interface" pkg="boxy_moveit_config" type="kinect_controller2.py" respawn="false" output="screen">
+type="kinect_planner2.py" respawn="false" output="screen">
+  </node>
 
 </launch>

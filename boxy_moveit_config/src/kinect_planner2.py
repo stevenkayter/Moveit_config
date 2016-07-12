@@ -3,6 +3,7 @@
 import sys
 import copy
 import rospy
+import actionlib
 import moveit_commander
 import moveit_msgs.msg
 from geometry_msgs.msg import PoseStamped

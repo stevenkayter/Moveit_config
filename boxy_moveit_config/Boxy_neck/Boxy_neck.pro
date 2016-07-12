@@ -23,4 +23,5 @@ OTHER_FILES += \
     ../src/move_group_interface.py \
     ../launch/move_group_mine3.launch \
     ../launch/demo.launch \
-    ../launch/move_group.launch
+    ../launch/move_group.launch \
+    ../launch/moveit_planning_execution.launch
