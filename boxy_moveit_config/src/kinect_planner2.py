@@ -35,18 +35,20 @@ def callback(data):
     fresh_data = True
 
 def move(plan_target):
+    global goal
     goal=FollowJointTrajectoryGoal()
-    goal.trajectory = JointTrajectory(plan_target)
-    goal.trajectory.joint_names = JOINT_NAMES
+    #goal.trajectory = JointTrajectory(plan_target)
+    goal.trajectory = plan_target
+    #goal.trajectory.joint_names = JOINT_NAMES
 
 def kinect_planner():
     global fresh_data
     
     moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node('kinect_trajectory_planner', anonymous=True)
-    rate = rospy.Rate(2)
+    rate = rospy.Rate(10)
     print "===================== Here 1 ======================="
-    rospy.sleep(3)
+    #rospy.sleep(3)
        
     # Instantiate a RobotCommander object. 
     robot = moveit_commander.RobotCommander()
@@ -65,12 +67,9 @@ def kinect_planner():
     
     # We create this DisplayTrajectory publisher to publish
     # trajectories for RVIZ to visualize.
-    display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
+    display_trajectory_publisher = rospy.Publisher('planned_path',
                                         moveit_msgs.msg.DisplayTrajectory, queue_size=5)
 
-    # Publish the trajectory used by the UR3
-   # trajectory_publisher = rospy.Publisher('/follow_joint_trajectory/planned_path',
-    #                                trajectory_msgs.msg.JointTrajectory, queue_size=5)
     # Set the planner for Moveit
     group.set_planner_id("RRTConnectkConfigDefault")
     group.set_planning_time(5)
@@ -90,11 +89,12 @@ def kinect_planner():
     group_left_arm_values = group_left_arm.get_current_joint_values()
     group_right_arm_values = group_right_arm.get_current_joint_values()
     group_kinect_values = group_kinect.get_current_joint_values()
+    print "===================== Here 4 ======================="
 
     # Talking to the robot
-    client = actionlib.SimpleActionClient('follow_joint_trajectory', FollowJointTrajectoryAction)
+    client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
     print "Waiting for server..."
-    client.wait_for_server()
+    #client.wait_for_server()
     print "Connected to server"
     
     while not rospy.is_shutdown():
@@ -107,10 +107,11 @@ def kinect_planner():
             # Set the target pose and generate a plan
             group.set_pose_target(pose_target)
             plan_target = group.plan()
+            print "===================== Here 5 ======================="
 
 
             # Publish trajectory
-            trajectory_publisher.publish(plan_target)
+            #display_trajectory_publisher.publish(plan_target)
 
             try:
                 group.go(wait=True)

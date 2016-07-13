@@ -8,13 +8,13 @@ from moveit_msgs.msg import RobotTrajectory
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 
-fresh_data = false
+fresh_data = False
 
 def callback(data):
-	global pose_target
-	pose_target = data
-    global fresh_data
-    fresh_data = true
+  global pose_target
+  pose_target = data
+  global fresh_data
+  fresh_data = True
 	
 def kinect_planner():
 	
@@ -30,7 +30,7 @@ def kinect_planner():
 	# Instantiate MoveGroupCommander objects for arms and Kinect2. 
 	group = moveit_commander.MoveGroupCommander("Kinect2_Target")
 	group_left_arm = moveit_commander.MoveGroupCommander("left_arm")
-	group_right_arm = moveit_commander.MoveGroupCommander("right_arm")
+	group_right_arm = moveit_commander.MoveGroupCommander("right_arm")	
 	group_kinect = moveit_commander.MoveGroupCommander("neck")
 	
 	# We create this RobotTrajectory publisher to publish the computed trajectories.
@@ -69,28 +69,27 @@ def kinect_planner():
 	
 	while not rospy.is_shutdown():
 		if fresh_data: #If a new pose ir received, plan.
+			# Update arms position
+			group_left_arm_values = group_left_arm.get_current_joint_values()
+			group_right_arm_values = group_right_arm.get_current_joint_values()
+           
+			# Set the target pose and generate a plan
+			#group.set_pose_target(pose_target)
+			plan_target = group.plan()
+			group.go()
             
-            # Update arms position
-            group_left_arm_values = group_left_arm.get_current_joint_values()
-            group_right_arm_values = group_right_arm.get_current_joint_values()
-            
-            # Set the target pose and generate a plan
-            #group.set_pose_target(pose_target)
-            plan_target = group.plan()
-            group.go()
-            
-            trajectory_publisher.publish(plan_target)
-            #trajectory_publisher.publish(group.plan())
-            
-            fresh_data = false
+			trajectory_publisher.publish(plan_target)
+			#trajectory_publisher.publish(group.plan())
+           
+			fresh_data = False
         
-        rate.sleep()
+			rate.sleep()
 
 
 
 
 if __name__=='__main__':
   try:
-    move_group_interface()
+    kinect_planner()
   except rospy.ROSInterruptException:
     pass
