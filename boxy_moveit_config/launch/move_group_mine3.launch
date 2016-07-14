@@ -5,7 +5,7 @@
 
  <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
  <!--  - if sim=false, a robot_ip argument is required -->
- <arg name="sim" default="true" />
+ <arg name="sim" default="false" />
  <arg name="robot_ip" unless="$(arg sim)" />
  <!-- ========= END moveit_planning_execution.launch ========= -->
 

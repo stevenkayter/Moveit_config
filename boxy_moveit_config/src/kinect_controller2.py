@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 
 def kinect_pose_definition():
-
+    rospy.sleep(7)
     rospy.init_node('robot_state', anonymous=True,)
     rate = rospy.Rate(1)
     # We create this publisher for the desired pose of the Kinect2 Sensor
