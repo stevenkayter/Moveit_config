@@ -27,6 +27,8 @@ JOINT_NAMES = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint',
 
 client = None
 
+goal=FollowJointTrajectoryGoal()
+
 def callback(data):
     global pose_target
     global fresh_data
@@ -36,9 +38,7 @@ def callback(data):
 
 def move(plan_target):
     global goal
-    goal=FollowJointTrajectoryGoal()
-    #goal.trajectory = JointTrajectory(plan_target)
-    goal.trajectory = plan_target
+    goal.trajectory = plan_target.joint_trajectory
     #goal.trajectory.joint_names = JOINT_NAMES
 
 def kinect_planner():
@@ -110,13 +110,24 @@ def kinect_planner():
             print "===================== Here 5 ======================="
 
 
-            # Publish trajectory
-            #display_trajectory_publisher.publish(plan_target)
-
             try:
-                group.go(wait=True)
+                #group.go(wait=True)
                 move(plan_target)
+
+                if True:
+                    #remove the first three names and data from each point
+                    print "Goal long", goal
+                    goal.trajectory.joint_names = goal.trajectory.joint_names[:6]
+                    print "Goal shot", goal
+                    for point in goal.trajectory.points:
+                       point.positions = point.positions[:6]
+                       point.velocities = point.velocities[:6]
+                       point.accelerations = point.accelerations[:6]
+
+
+                print "Sending goal"
                 client.send_goal(goal)
+                print "Waiting for result"
                 client.wait_for_result()
 
             except KeyboardInterrupt:
