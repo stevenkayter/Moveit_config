@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 
 def kinect_pose_definition():
-    rospy.sleep(7)
+    rospy.sleep(10)
     rospy.init_node('robot_state', anonymous=True,)
     rate = rospy.Rate(1)
     # We create this publisher for the desired pose of the Kinect2 Sensor
@@ -22,7 +22,7 @@ def kinect_pose_definition():
     pose_target.pose.position.x =  1.3 
     pose_target.pose.position.y = -0.2 
     pose_target.pose.position.z = 1.17
-    print "Pose target", pose_target
+    print "Pose target: ", pose_target
     x=0;
     while not rospy.is_shutdown():
         if x > 15:

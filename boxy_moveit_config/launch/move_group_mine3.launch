@@ -12,6 +12,8 @@
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
 
+  <param name="/use_sim_time" value="false"/>
+
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find boxy_moveit_config)/launch/move_group.launch">
     <arg name="allow_trajectory_execution" value="true"/>
@@ -36,24 +38,26 @@
       <arg name="robot_ip" value="$(arg robot_ip)"/>
     </include>
   </group> -->
-  <group unless="$(arg sim)">
+  <!--<group unless="$(arg sim)">
     <include file="$(find ur_modern_driver)/launch/ur3_bringup.launch" >
       <arg name="robot_ip" value="$(arg robot_ip)"/>
       <arg name="prefix" value="neck_"/>
     </include>
-  </group>
+  </group>-->
   <!-- ========================================================= -->
-   <!-- ========= END moveit_planning_execution.launch ========= -->
+  <!-- ========= END moveit_planning_execution.launch ========= -->
 
-  <!-- publish the robot state (tf transforms) -->
-  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+  <!--<group unless="$(arg sim)">
+     <include file="$(find boxy_moveit_config)/launch/ur3_ros_control_modified.launch" >
+       <arg name="robot_ip" value="$(arg robot_ip)"/>
+       <arg name="prefix" value="neck_"/>
+     </include>
+   </group> -->
 
   <!-- If needed, broadcast static tf for robot root -->
   <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world base_footprint 100" />
   <!-- Given the published joint states, publish tf for the robot links -->
   <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />-->
-
-
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
   <include file="$(find boxy_moveit_config)/launch/moveit_rviz.launch">
@@ -63,8 +67,8 @@
 
   <include file="$(find iai_boxy_bringup)/launch/boxy_ur3_test.launch"/>
 
-  <node name="move_group_interface" pkg="boxy_moveit_config" type="kinect_controller2.py" respawn="false" output="screen">
-<!--type="kinect_planner2.py" respawn="false" output="screen">-->
+  <node name="move_group_controller" pkg="boxy_moveit_config" type="kinect_controller2.py" respawn="false" output="screen"/>
+  <node name="move_group_planner" pkg="boxy_moveit_config" type="kinect_planner2.py" respawn="false" output="screen">
   </node>
 
 </launch>

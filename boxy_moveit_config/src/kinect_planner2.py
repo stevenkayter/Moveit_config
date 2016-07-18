@@ -48,7 +48,7 @@ def kinect_planner():
     rospy.init_node('kinect_trajectory_planner', anonymous=True)
     rate = rospy.Rate(10)
     print "===================== Here 1 ======================="
-    rospy.sleep(3)
+    #rospy.sleep(3)
        
     # Instantiate a RobotCommander object. 
     robot = moveit_commander.RobotCommander()
