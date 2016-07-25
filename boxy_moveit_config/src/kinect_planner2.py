@@ -72,11 +72,11 @@ def kinect_planner():
 
     # Set the planner for Moveit
     group.set_planner_id("RRTConnectkConfigDefault")
-    group.set_planning_time(5)
+    group.set_planning_time(12)
     group.set_pose_reference_frame('base_footprint')
     
     # Setting tolerance
-    group.set_goal_tolerance(0.03)
+    group.set_goal_tolerance(1)
     #    group.set_num_planning_attempts(10)
     
     #print "=============== Current Pose ==========="
@@ -101,7 +101,6 @@ def kinect_planner():
     neck_init_joints[7] = 0
     neck_init_joints[8] = 0
     neck_init_joints[9] = 0
-    group.set_joint_value_target(neck_init_joints)
 
     # Talking to the robot
     client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
@@ -137,7 +136,7 @@ def kinect_planner():
                     for point in goal.trajectory.points:
                         diff=0
                         # calculate the distance between initial pose and
-                        for i in range(1,7):
+                        for i in range(0,6):
                             diff = abs(neck_init_joints[i] - point.positions[i])+abs(diff)
                         differ[num] =diff
 
@@ -180,9 +179,6 @@ def kinect_planner():
                     neck_init_joints[6] = 0.7
                     group.set_joint_value_target(neck_joints)
                     group.go(wait=True)
-                    print "moving virtual joint"
-                    rospy.sleep(2)
-
 
             except (KeyboardInterrupt, SystemExit):
                 client.cancel_goal()

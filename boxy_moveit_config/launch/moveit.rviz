@@ -430,6 +430,11 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+          shoulder_kinect_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           torso_base_link:
             Alpha: 1
             Show Axes: false
@@ -853,6 +858,11 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+          shoulder_kinect_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           torso_base_link:
             Alpha: 1
             Show Axes: false
@@ -957,7 +967,7 @@ Visualization Manager:
         neck_adapter_ur3_frame_out:
           Value: false
         neck_base:
-          Value: false
+          Value: true
         neck_base_link:
           Value: false
         neck_ee_link:
@@ -975,7 +985,7 @@ Visualization Manager:
         neck_shoulder_link:
           Value: false
         neck_tool0:
-          Value: true
+          Value: false
         neck_upper_arm_link:
           Value: false
         neck_wrist_1_link:
@@ -1034,6 +1044,8 @@ Visualization Manager:
           Value: false
         right_gripper_tool_frame:
           Value: false
+        shoulder_kinect_link:
+          Value: false
         torso_base_link:
           Value: false
         triangle_base_link:
@@ -1080,6 +1092,8 @@ Visualization Manager:
                                       neck_look_target_3:
                                         neck_look_target_4:
                                           {}
+              shoulder_kinect_link:
+                {}
               torso_base_link:
                 {}
               triangle_base_link:
@@ -1175,10 +1189,10 @@ Visualization Manager:
         Z: 4.61937e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.759797
+      Pitch: 0.244797
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 0.66676
+      Yaw: 0.916762
     Saved: ~
 Window Geometry:
   Displays:
