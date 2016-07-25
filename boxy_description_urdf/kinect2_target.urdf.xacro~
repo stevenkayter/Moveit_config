@@ -23,7 +23,7 @@
 					<cylinder length="${Length}" radius="${R}"/>
 				</geometry>
 				<material name="blue">
-					<color rgba="0 0.2 0.7 1"/>
+					<color rgba="0.2 0.2 0.7 1"/>
 				</material>
 			</visual>
 		</link>
@@ -57,7 +57,7 @@
 
 	</xacro:macro>
 
-	<xacro:property name="R" value="0.03" />
+	<xacro:property name="R" value="0.035" />
 	<xacro:property name="Length" value="0.35" />
 
 

@@ -64,37 +64,44 @@ joint_limits:
     max_acceleration: 0
   neck_elbow_joint:
     has_velocity_limits: true
-    max_velocity: 3.15
+    #max_velocity: 3.15
+    max_velocity: 2.5
     has_acceleration_limits: false
     max_acceleration: 0
   neck_joint_end:
     has_velocity_limits: true
-    max_velocity: 0.5
+    #max_velocity: 0.5
+    max_velocity: 0.25
     has_acceleration_limits: false
     max_acceleration: 0
   neck_shoulder_lift_joint:
     has_velocity_limits: true
-    max_velocity: 2.16
+    #max_velocity: 2.16
+    max_velocity: 1.0
     has_acceleration_limits: false
     max_acceleration: 0
   neck_shoulder_pan_joint:
     has_velocity_limits: true
-    max_velocity: 2.16
+    #max_velocity: 2.16
+    max_velocity: 1.05
     has_acceleration_limits: false
     max_acceleration: 0
   neck_wrist_1_joint:
     has_velocity_limits: true
-    max_velocity: 3.2
+    #max_velocity: 3.2
+    max_velocity: 1.6
     has_acceleration_limits: false
     max_acceleration: 0
   neck_wrist_2_joint:
     has_velocity_limits: true
-    max_velocity: 3.2
+    #max_velocity: 3.2
+    max_velocity: 1.6
     has_acceleration_limits: false
     max_acceleration: 0
   neck_wrist_3_joint:
     has_velocity_limits: true
-    max_velocity: 3.2
+    #max_velocity: 3.2
+    max_velocity: 1.6
     has_acceleration_limits: false
     max_acceleration: 0
   right_arm_0_joint:

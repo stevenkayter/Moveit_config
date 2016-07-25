@@ -43,11 +43,11 @@ def move(plan_target):
 
 def kinect_planner():
     global fresh_data
+    global goal
     
     moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node('kinect_trajectory_planner', anonymous=True)
     rate = rospy.Rate(10)
-    print "===================== Here 1 ======================="
     #rospy.sleep(3)
        
     # Instantiate a RobotCommander object. 
@@ -55,14 +55,14 @@ def kinect_planner():
     
     # Instantiate a PlanningSceneInterface object (interface to the world surrounding the robot).
     scene = moveit_commander.PlanningSceneInterface()
-    print "===================== Here 2 ======================="
+    print "===================== Here 1 ======================="
     
     # Instantiate MoveGroupCommander objects for arms and Kinect2. 
     group = moveit_commander.MoveGroupCommander("Kinect2_Target")
     group_left_arm = moveit_commander.MoveGroupCommander("left_arm")
     group_right_arm = moveit_commander.MoveGroupCommander("right_arm")
-    group_kinect = moveit_commander.MoveGroupCommander("neck")
-    print "===================== Here 3 ======================="
+    #group_kinect = moveit_commander.MoveGroupCommander("neck")
+    print "===================== Here 2 ======================="
     
     
     # We create this DisplayTrajectory publisher to publish
@@ -79,8 +79,8 @@ def kinect_planner():
     group.set_goal_tolerance(0.03)
     #    group.set_num_planning_attempts(10)
     
-    print "=============== Current Pose ==========="
-    print group.get_current_pose();
+    #print "=============== Current Pose ==========="
+    #print group.get_current_pose();
     
     # Suscribing to the desired pose topic
     target = rospy.Subscriber("desired_pose", PoseStamped, callback)
@@ -88,14 +88,26 @@ def kinect_planner():
     # Locating the arms and the Kinect2 sensor
     group_left_arm_values = group_left_arm.get_current_joint_values()
     group_right_arm_values = group_right_arm.get_current_joint_values()
-    group_kinect_values = group_kinect.get_current_joint_values()
-    print "===================== Here 4 ======================="
+    #group_kinect_values = group_kinect.get_current_joint_values()
+
+    neck_init_joints = group.get_current_joint_values()
+    neck_init_joints[0] = -1.346
+    neck_init_joints[1] = -1.116
+    neck_init_joints[2] = -2.121
+    neck_init_joints[3] = -2.486
+    neck_init_joints[4] = -1.541
+    neck_init_joints[5] = -3.093
+    neck_init_joints[6] = 0
+    neck_init_joints[7] = 0
+    neck_init_joints[8] = 0
+    neck_init_joints[9] = 0
+    group.set_joint_value_target(neck_init_joints)
 
     # Talking to the robot
     client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
-    print "Waiting for server..."
+    print "===================== Waiting for server..."
     client.wait_for_server()
-    print "Connected to server"
+    print "===================== Connected to server"
     
     while not rospy.is_shutdown():
         if fresh_data == True: #If a new pose is received, plan.
@@ -107,30 +119,72 @@ def kinect_planner():
             # Set the target pose and generate a plan
             group.set_pose_target(pose_target)
             plan_target = group.plan()
-            print "===================== Here 5 ======================="
+            print "=========== Calculating trajectory... \n"
 
+            # Generate several plans and compare them to get the shorter one
+            plan_opt = dict()
+            differ = dict()
 
             try:
                 #group.go(wait=True)
-                move(plan_target)
+                #move(plan_target)
 
-                if True:
-                    #remove the first three names and data from each point
-                    print "Goal long", goal
-                    goal.trajectory.joint_names = goal.trajectory.joint_names[:6]
-                    print "Goal shot", goal
+                # Generate several plans and compare them to get the shorter one
+                for num in range(1,6):
+                    plan_temp = group.plan()
+                    move(plan_temp)
+                    plan_opt[num] = goal.trajectory
                     for point in goal.trajectory.points:
-                       point.positions = point.positions[:6]
-                       point.velocities = point.velocities[:6]
-                       point.accelerations = point.accelerations[:6]
+                        diff=0
+                        # calculate the distance between initial pose and
+                        for i in range(1,7):
+                            diff = abs(neck_init_joints[i] - point.positions[i])+abs(diff)
+                        differ[num] =diff
+
+                if differ == {}:
+                    print "Fail: No motion plan found. No execution attempted."
+                    break
+
+                else:
+                    # Select the shortest plan
+                    min_plan = min(differ.itervalues())
+                    select = [k for k, value in differ.iteritems() if value == min_plan]
+                    goal.trajectory = plan_opt[select[0]]
+                    print "================== Plan difference:============== ", differ
+                    print "================== Selected plan:================ ", select[0]
+
+                    # Just for testing, remove later
+                    for point in goal.trajectory.points:
+                        diff=0
+                        for i in range(1,7):
+                            diff = abs(neck_init_joints[i] - point.positions[i])+abs(diff)
+                    print "================== Selected plan diff:=========== ", diff
 
 
-                print "Sending goal"
-                client.send_goal(goal)
-                print "Waiting for result"
-                client.wait_for_result()
+                    # Remove the last 4 names and data from each point (dummy joints) before sending the goal
+                    goal.trajectory.joint_names = goal.trajectory.joint_names[:6]
+                    #print "Goal shot", goal
+                    for point in goal.trajectory.points:
+                        point.positions = point.positions[:6]
+                        point.velocities = point.velocities[:6]
+                        point.accelerations = point.accelerations[:6]
 
-            except KeyboardInterrupt:
+
+                    print "Sending goal"
+                    client.send_goal(goal)
+                    print "Waiting for result"
+                    client.wait_for_result()
+
+                    # Change the position of the virtual joint to avoid collision
+                    neck_joints = group.get_current_joint_values()
+                    neck_init_joints[6] = 0.7
+                    group.set_joint_value_target(neck_joints)
+                    group.go(wait=True)
+                    print "moving virtual joint"
+                    rospy.sleep(2)
+
+
+            except (KeyboardInterrupt, SystemExit):
                 client.cancel_goal()
                 raise
             

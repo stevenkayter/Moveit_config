@@ -40,7 +40,6 @@
      for links.
      -->
   <!-- length is along the y-axis! -->
-  <!--xacro:include filename="$(find iai_boxy_description)/sensors/kinect.urdf.xacro"/-->
   <!--
   Author: Felix Messmer
 -->
@@ -56,7 +55,6 @@
   <!-- measured from model -->
   <!-- measured from model -->
   <!-- link lengths used in model -->
-  <!--	<xacro:include filename="$(find iai_kinect2_look_target)/urdf/kinect2_target.urdf.xacro"/> -->
   <!-- Property definitions e.g. constants -->
   <!--this is the diamiter of one of the aluminium (/2) pipes (20mm) = the diamiter of the piece that holds the slider (45mm) -->
   <!-- distance from the axis 0 to the first alu pipe 74 + distance between the pipes 150 + diamiter of the slider 200 /2   ( = center ) -->
@@ -516,10 +514,62 @@
              from: base_link to: shoulder_kinect_link
              translation: -0.135394 -0.00764754 1.54755 (xyz)
              quaternion: 0.0177781 0.202257 -0.0472198 0.978032 (xyzw) -->
-  <!--kinect name="shoulder_kinect" parent="base_link">
-          <origin xyz="-0.135394 -0.00764754 1.54755"
-                  rpy="0.01708077682636155 0.4085798647123734 -0.09294704527264909"/> 
-       </kinect-->
+  <joint name="shoulder_kinect_joint" type="fixed">
+    <origin rpy="0.01708077682636155 0.0085798647123734 -0.00929470452726490" xyz="-0.00585394 -0.52064754 1.46001"/>
+    <parent link="base_link"/>
+    <child link="shoulder_kinect_link"/>
+  </joint>
+  <link name="shoulder_kinect_link">
+    <visual>
+      <!-- NOTE: I (Georg Bartels) put these to be visually pleasing with our calibration
+                    on February 11th, 2015. They are not set in stone! If the calibration
+                    changes you might have to touch them again. Sorry! -->
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="-0.05 -0.17 -0.02"/>
+      <geometry>
+        <mesh filename="package://iai_kinect_description/meshes/68-04546_Kinect_Sensor--coarse.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0"/>
+      <geometry>
+        <sphere radius="0.0005"/>
+      </geometry>
+    </collision>
+  </link>
+  <!--<joint name="${name}_rgb_joint" type="fixed">
+      <origin xyz="0.0 -0.045 0.0" rpy="0.0 0.0 0.0"/>
+      <parent link="${name}_link"/>
+      <child link="${name}_rgb_frame"/>
+    </joint>
+    
+    <link name="${name}_rgb_frame"/>
+    
+    <joint name="${name}_rgb_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2.0} 0.0 ${-M_PI/2.0}"/>
+      <parent link="${name}_rgb_frame"/>
+      <child link="${name}_rgb_optical_frame"/>
+    </joint>
+    
+    <link name="${name}_rgb_optical_frame"/>
+    
+    <joint name="${name}_depth_joint" type="fixed">
+      <origin xyz="0.0 -0.02 0.0" rpy="0.0 0.0 0.0"/>
+      <parent link="${name}_link"/>
+      <child link="${name}_depth_frame"/>
+    </joint>
+    
+    <link name="${name}_depth_frame"/>
+    
+    <joint name="${name}_depth_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2.0} 0.0 ${-M_PI/2.0}"/>
+      <parent link="${name}_depth_frame"/>
+      <child link="${name}_depth_optical_frame"/>
+    </joint>
+    
+    <link name="${name}_depth_optical_frame"/>-->
   <!-- JOINT to connect the base with the torso -->
   <joint name="torso_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0.065 0.41"/>
@@ -577,7 +627,7 @@
       xyz="0.0674958675029617 0.10311858113734 0.915114291670046"
       rpy="4.7298 6.267 1.5685260" /-->
     <!-- Output of the hand/eye calibration baserobot_H_basearm-->
-    <origin rpy="4.70695928 6.28217403836 1.56327975371" xyz="0.0786889663592487 0.0986351579738104 0.906352096493862"/>
+    <origin rpy="4.70695928 6.28217403836 1.56327975371" xyz="0.0786889663592487 0.0986351579738104 0.996332096493862"/>
     <parent link="base_link"/>
     <child link="triangle_base_link"/>
     <axis xyz="0 -1 0"/>

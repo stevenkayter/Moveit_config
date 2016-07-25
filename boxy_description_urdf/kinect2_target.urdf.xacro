@@ -57,7 +57,7 @@
 
 	</xacro:macro>
 
-	<xacro:property name="R" value="0.035" />
+	<xacro:property name="R" value="0.03" />
 	<xacro:property name="Length" value="0.35" />
 
 
