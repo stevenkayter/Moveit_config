@@ -6,6 +6,10 @@ import rospy
 import actionlib
 import moveit_commander
 import moveit_msgs.msg
+from moveit_msgs.msg import Constraints
+from moveit_msgs.msg import JointConstraint
+from moveit_msgs.msg import OrientationConstraint
+from moveit_msgs.msg import VisibilityConstraint
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 from control_msgs.msg import *
@@ -98,6 +102,15 @@ def kinect_planner():
     neck_init_joints[7] = 0
     neck_init_joints[8] = 0
     neck_init_joints[9] = 0
+
+    # Defining orientation and position constraints for the kinect
+    neck_const = Constraints()
+    target_const = JointConstraint()
+    target_const.joint_name = "neck_joint_end"
+    target_const.position = 0.95
+    target_const.tolerance_above = 0.60
+    target_const.tolerance_below = 0.05
+    neck_const.joint_constraints.append(target_const)
 
     # Talking to the robot
     client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)

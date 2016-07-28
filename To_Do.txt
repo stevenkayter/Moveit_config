@@ -21,6 +21,11 @@ UR3 is listening to the topics:
 	/follow_joint_trajectory/result
 	/follow_joint_trajectory/status
 
+ - Simplify meshes of the UR3, shoulder kinect and Triangle base
+ - Add constraints to the orientation of kinect and position of virtual joint
+ - model tool holder
+ - run everything on leela
+
 
 ----------- STOP FIREWALL -----
 sudo service ufw stop
