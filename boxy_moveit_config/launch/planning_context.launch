@@ -5,8 +5,12 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
-  <!-- Load universal robot description format (URDF) -->
-  <param if="$(arg load_robot_description)" name="$(arg robot_description)" textfile="$(find boxy_description_urdf)/boxy_description.urdf"/>
+  <!-- Load BOXY description format (URDF) -->
+  <!--param if="$(arg load_robot_description)" name="$(arg robot_description)" textfile="$(find iai_boxy_description)/robots/boxy_description.urdf"/-->
+  <arg name="bring_up_robot" default="false"/>
+  <group if="$(arg bring_up_robot)">
+    <include file="$(find iai_boxy_description)/launch/upload_boxy.launch" />
+  </group>
 
   <!-- The semantic description that corresponds to the URDF -->
   <param name="$(arg robot_description)_semantic" textfile="$(find boxy_moveit_config)/config/boxy_description.srdf" />

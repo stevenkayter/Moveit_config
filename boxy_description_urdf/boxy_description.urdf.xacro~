@@ -13,7 +13,7 @@
   <xacro:include filename="$(find iai_ur_description)/urdf/ur3.urdf.xacro" />
 	<xacro:include filename="$(find iai_kinect2_description)/urdf/kinect2.urdf.xacro"/>
 	<xacro:include filename="$(find iai_adapter_iso50_kinect2_description)/urdf/adapter_iso50_kinect2.urdf.xacro"/>
-	<xacro:include filename="$(find boxy_description_urdf)/kinect2_target.urdf.xacro"/>
+	<xacro:include filename="$(find iai_kinect2_look_target)/kinect2_target.urdf.xacro"/>
 
 	<!-- Property definitions e.g. constants -->
 	<xacro:property name="head_joint_x" value="0.2" />
@@ -113,7 +113,7 @@
         <kinect name="shoulder_kinect" parent="base_link">
           <!--<origin xyz="-0.135394 -0.00764754 1.54755"
                   rpy="0.01708077682636155 0.4085798647123734 -0.09294704527264909"/> -->
-					<origin xyz="0.04085394 -0.52064754 1.47001"
+					<origin xyz="0.0405394 -0.52064754 1.47001"
                   rpy="0.01708077682636155 0.0085798647123734 -0.00929470452726490"/>
        </kinect>
 	

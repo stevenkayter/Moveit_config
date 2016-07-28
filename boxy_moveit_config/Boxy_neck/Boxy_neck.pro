@@ -26,4 +26,5 @@ OTHER_FILES += \
     ../launch/move_group.launch \
     ../launch/moveit_planning_execution.launch \
     ../launch/ur3_ros_control_modified.launch \
-    ../../../iai_robots/iai_boxy_bringup/launch/boxy_ur3_test.launch
+    ../../../iai_robots/iai_boxy_bringup/launch/boxy_ur3_test.launch \
+    ../launch/planning_context.launch

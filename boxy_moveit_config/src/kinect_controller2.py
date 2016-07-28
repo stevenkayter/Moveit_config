@@ -9,7 +9,7 @@ from std_msgs.msg import String
 def kinect_pose_definition():
     rospy.sleep(10)
     rospy.init_node('robot_state', anonymous=True,)
-    rate = rospy.Rate(1)
+    rate = rospy.Rate(0.5)
 
     # We create this publisher for the desired pose of the Kinect2 Sensor
     pose_publisher = rospy.Publisher("desired_pose", PoseStamped, queue_size=5)
