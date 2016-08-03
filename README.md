@@ -8,7 +8,8 @@ This package contains the files required to control the UR3 on boxy's head using
 
 To run it:
   - Clone this repository and iai_robots
-  - launch momove_group_mine.launch, if you want to publish the desired pose, comment the kinect_controller.py
+  - bring up the ur3  'roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_' 
+  - launch move_group_mine.launch, if you want to publish the desired pose, comment the <kinect_controller.py> part
   - launch kinect_planner.py
 
 To publish your pose, send a PoseStamped to /desired_pose topic with pose_target.header.frame_id = 'map'
