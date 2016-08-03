@@ -20,16 +20,16 @@ def kinect_pose_definition():
     pose_target.pose.orientation.y = 0 
     pose_target.pose.orientation.z = 0 
     pose_target.pose.orientation.w = 1 
-    #pose_target.header.frame_id = 'base_footprint'
-    #pose_target.pose.position.x =  1.256
-    #pose_target.pose.position.y = -0.152
-    #pose_target.pose.position.z = 0.853
+    pose_target.header.frame_id = 'base_footprint'
+    pose_target.pose.position.x =  1.256
+    pose_target.pose.position.y = -0.152
+    pose_target.pose.position.z = 0.853
 
     # Defining a Pose goal (wrt map, when Boxy is up)
-    pose_target.header.frame_id = 'map'
-    pose_target.pose.position.x =  -1.159
-    pose_target.pose.position.y = 1.42
-    pose_target.pose.position.z = 0.85
+    #pose_target.header.frame_id = 'map'
+    #pose_target.pose.position.x =  -1.159
+    #pose_target.pose.position.y = 1.42
+    #pose_target.pose.position.z = 0.85
     print "Pose target: ", pose_target
 
 

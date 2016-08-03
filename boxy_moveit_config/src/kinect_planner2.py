@@ -10,7 +10,11 @@ from moveit_msgs.msg import Constraints
 from moveit_msgs.msg import JointConstraint
 from moveit_msgs.msg import OrientationConstraint
 from moveit_msgs.msg import VisibilityConstraint
+from moveit_msgs.msg import CollisionObject
 from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Quaternion
+from shape_msgs.msg import SolidPrimitive
 from std_msgs.msg import String
 from control_msgs.msg import *
 from trajectory_msgs.msg import *
@@ -73,7 +77,7 @@ def kinect_planner():
 
     # Set the planner for Moveit
     group.set_planner_id("RRTConnectkConfigDefault")
-    group.set_planning_time(10)
+    group.set_planning_time(8)
     group.set_pose_reference_frame('base_footprint')
     
     # Setting tolerance
@@ -103,14 +107,41 @@ def kinect_planner():
     neck_init_joints[8] = 0
     neck_init_joints[9] = 0
 
+    # Creating a box to limit the arm position
+    box_pose = PoseStamped()
+    box_pose.pose.orientation.w = 1
+    box_pose.pose.position.x =  0.6
+    box_pose.pose.position.y =  0.03
+    box_pose.pose.position.z =  1.5
+    box_pose.header.frame_id = 'base_footprint'
+
+    scene.add_box('box1', box_pose, (0.4, 0.4, 0.1))
+    rospy.sleep(2)
+
     # Defining orientation and position constraints for the kinect
     neck_const = Constraints()
+    neck_const.name = 'neck_constraints'
     target_const = JointConstraint()
     target_const.joint_name = "neck_joint_end"
     target_const.position = 0.95
-    target_const.tolerance_above = 0.60
+    target_const.tolerance_above = 0.45
     target_const.tolerance_below = 0.05
+    target_const.weight = 0.9
     neck_const.joint_constraints.append(target_const)
+
+    kinect_const = OrientationConstraint()
+    kinect_const.header.frame_id = "base_footprint"
+    kinect_const.link_name = "neck_tool0"
+    kinect_const.orientation.x =  0.373
+    kinect_const.orientation.y = -0.361
+    kinect_const.orientation.z =  0.630
+    kinect_const.orientation.w = -0.578
+    kinect_const.absolute_x_axis_tolerance = 3.14
+    kinect_const.absolute_y_axis_tolerance = 0.450
+    kinect_const.absolute_z_axis_tolerance = 3.14
+    kinect_const.weight = 0.7 # Importance of this constraint
+    neck_const.orientation_constraints.append(kinect_const)
+    #group.set_path_constraints(neck_const)
 
     # Talking to the robot
     client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
@@ -204,6 +235,7 @@ def kinect_planner():
                     neck_joints[6] = 0.7
                     group.set_joint_value_target(neck_joints)
                     group.go(wait=True)
+
 
             except (KeyboardInterrupt, SystemExit):
                 client.cancel_goal()

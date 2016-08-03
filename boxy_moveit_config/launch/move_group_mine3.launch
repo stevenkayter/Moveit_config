@@ -14,9 +14,10 @@
 
   <!--<param name="/use_sim_time" value="false"/>-->
 
-  <!-- CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP -->
+  <!-- ********** CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP ********* -->
+  <!-- NOTE!!!! also change map to base_footprint in kinect_controller.py and the SRDF -->
   <!-- Given the published joint states, publish tf for the robot links -->
-  <arg name="bring_up_robot" default="false" />
+  <arg name="bring_up_robot" default="false" /> <!-- Do I have to bring up everything? -->
   <group if="$(arg bring_up_robot)">
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
     <include file="$(find iai_boxy_bringup)/launch/boxy_ur3_test.launch"/>
@@ -71,6 +72,9 @@
 
   <!-- If needed, broadcast static tf for robot root -->
   <group if="$(arg bring_up_robot)">
+    <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world base_footprint 100" />
+  </group>
+  <group unless="$(arg bring_up_robot)">
     <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 map base_footprint 100" />
   </group>
 
