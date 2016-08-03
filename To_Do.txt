@@ -25,6 +25,10 @@ UR3 is listening to the topics:
  - Add constraints to the orientation of kinect and position of virtual joint
  - model tool holder
  - run everything on leela
+ - add mesh in front of the kinect
+ - documentation
+ - report outline
+ - tool holders
 
 
 ----------- STOP FIREWALL -----
