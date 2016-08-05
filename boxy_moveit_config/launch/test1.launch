@@ -1,8 +1,0 @@
-<launch>
-
-  <node name="move_group_mine" pkg="boxy_moveit_config" 
-type="kinect_planner2.py" respawn="false" output="screen">
-  </node>
-
-
-</launch>

@@ -16,7 +16,6 @@
 
   <!-- ********** CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP ********* -->
   <!-- NOTE!!!! also change map to base_footprint in kinect_controller.py and the SRDF -->
-  <!-- Given the published joint states, publish tf for the robot links -->
   <arg name="bring_up_robot" default="false" /> <!-- Do I have to bring up everything? -->
   <group if="$(arg bring_up_robot)">
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
@@ -54,21 +53,7 @@
       <arg name="robot_ip" value="$(arg robot_ip)"/>
     </include>
   </group> -->
-  <!--<group unless="$(arg sim)">
-    <include file="$(find ur_modern_driver)/launch/ur3_bringup.launch" >
-      <arg name="robot_ip" value="$(arg robot_ip)"/>
-      <arg name="prefix" value="neck_"/>
-    </include>
-  </group>-->
   <!-- ========================================================= -->
-  <!-- ========= END moveit_planning_execution.launch ========= -->
-
-  <!--<group unless="$(arg sim)">
-     <include file="$(find boxy_moveit_config)/launch/ur3_ros_control_modified.launch" >
-       <arg name="robot_ip" value="$(arg robot_ip)"/>
-       <arg name="prefix" value="neck_"/>
-     </include>
-   </group> -->
 
   <!-- If needed, broadcast static tf for robot root -->
   <group if="$(arg bring_up_robot)">
