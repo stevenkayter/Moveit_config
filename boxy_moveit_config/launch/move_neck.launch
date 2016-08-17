@@ -12,10 +12,8 @@
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
 
-  <!--<param name="/use_sim_time" value="false"/>-->
-
-  <!-- ********** CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP ********* -->
-  <!-- NOTE!!!! also change map to base_footprint in kinect_controller.py and the SRDF -->
+  <!-- ************* CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP ************* -->
+  <!-- NOTE!!!! also change map to base_footprint in kinect_controller.py -->
   <arg name="bring_up_robot" default="true" /> <!-- Do I have to bring up everything? -->
   <group if="$(arg bring_up_robot)">
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
@@ -43,17 +41,6 @@
   <group if="$(arg sim)">
     <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
   </group>
-
-  <!-- ========================================================= -->
-  <!-- run the "real robot" interface nodes -->
-  <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
-  <!--   - replace these calls with appropriate robot-specific calls or launch files -->
-  <!--<group unless="$(arg sim)">
-    <include file="$(find [robot_interface_pkg])/launch/robot_interface.launch" >
-      <arg name="robot_ip" value="$(arg robot_ip)"/>
-    </include>
-  </group> -->
-  <!-- ========================================================= -->
 
   <!-- If needed, broadcast static tf for robot root -->
   <group if="$(arg bring_up_robot)">

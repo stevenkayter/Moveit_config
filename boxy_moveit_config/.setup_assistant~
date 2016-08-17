@@ -1,8 +1,0 @@
-moveit_setup_assistant_config:
-  URDF:
-    package: ""
-    relative_path: ~/ur3_head/boxy_description_urdf/boxy_description.urdf
-  SRDF:
-    relative_path: config/boxy_description.srdf
-  CONFIG:
-    generated_timestamp: 1462796123
