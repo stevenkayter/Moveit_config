@@ -13,8 +13,13 @@
   </group>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" textfile="$(find boxy_moveit_config)/config/boxy_description.srdf" />
-  
+  <group if="$(arg bring_up_robot)">
+    <param name="$(arg robot_description)_semantic" textfile="$(find boxy_moveit_config)/config/boxy_description_bringup.srdf" />
+  </group>
+  <group unless="$(arg bring_up_robot)">
+    <param name="$(arg robot_description)_semantic" textfile="$(find boxy_moveit_config)/config/boxy_description.srdf" />
+  </group>
+
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
     <rosparam command="load" file="$(find boxy_moveit_config)/config/joint_limits.yaml"/>
