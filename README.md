@@ -7,7 +7,7 @@ This package contains the files required to control the UR3 on boxy's head using
 - `boxy_moveit_config` includes the kinematic representation and the general configuration needed by Moveit, as well as the publisher and subscriber used to specify the target of the Kinect2 (where the Kinect 2 is looking).
 
 To run it:
-  - Clone this repository and iai_robots
+  - Clone this repository, iai_boxy and iai_robots
   - Bring up the ur3   `roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_`
   - Launch __move_neck.launch__ from the package boxy_moveit_config. If you want to publish the desired pose or joint state, comment the `node name="move_group_controller" pkg="boxy_moveit_config" type="kinect_controller.py" respawn="false" output="screen"/` part at the end of the file.
   
