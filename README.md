@@ -8,21 +8,21 @@ This package contains the files required to control the UR3 on boxy's head using
 
 To run it:
   - Clone this repository and iai_robots
-  - bring up the ur3   `roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_`
-  - launch move_neck.launch from the package boxy_moveit_config. If you want to publish the desired pose or joint state, comment the 'node name="move_group_controller" pkg="boxy_moveit_config" type="kinect_controller.py" respawn="false" output="screen"/' part.
+  - Bring up the ur3   `roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_`
+  - Launch __move_neck.launch__ from the package boxy_moveit_config. If you want to publish the desired pose or joint state, comment the `node name="move_group_controller" pkg="boxy_moveit_config" type="kinect_controller.py" respawn="false" output="screen"/` part at the end of the file.
   
         ` roslaunch boxy_moveit_config move_neck.launch robot_ip:=192.168.102.62 `
 
-  - launch kinect_planner.py from the package boxy_moveit_config
+  - Launch __kinect_planner.py__ from the package boxy_moveit_config
   
         ` rosrun boxy_moveit_config kinect_planner.py `
 
 To publish your pose, send a PoseStamped to `/desired_pose` topic with `pose_target.header.frame_id = 'map'`
-To publish some desired joint values, send a pose_w_joint message to `/desired_joints` (from boxy_moveit_config.msg import pose_w_joints)
+To publish some desired joint values, send a pose_w_joint message to `/desired_joints` (`from boxy_moveit_config.msg import pose_w_joints`)
 
 NOTE: Boxy status 
 If boxy is already up
-  - In `move_neck.launch`: modify arg name="bring_up_robot" to "false"
-  - In `kinect_controller.py`: change pose_target.header.frame_id to "map" (uncomment existing code)
-  Different SRDFs are used 
+  - In `move_neck.launch`: modify `arg name="bring_up_robot"` to `false`
+  - In `kinect_controller.py`: change `pose_target.header.frame_id` to "map" (uncomment existing code)
+  Different SRDFs are used. 
 
