@@ -14,7 +14,7 @@
 
   <!-- ************* CHANGE THIS PARAM TO FALSE WHEN BOXY IS ALREADY UP ************* -->
   <!-- NOTE!!!! also change map to base_footprint in kinect_controller.py -->
-  <arg name="bring_up_robot" default="true" /> <!-- Do I have to bring up everything? -->
+  <arg name="bring_up_robot" default="false" /> <!-- Do I have to bring up everything? -->
   <group if="$(arg bring_up_robot)">
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
     <include file="$(find iai_boxy_bringup)/launch/boxy_ur3_test.launch"/>
@@ -50,14 +50,24 @@
     <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 map base_footprint 100" />
   </group>-->
 
+  <node name="move_group_planner" 
+        pkg="boxy_moveit_config"
+        type="kinect_planner.py"
+        respawn="false"
+        output="screen">
+  </node>
+  
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <!--
   <include file="$(find boxy_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>
-
+  -->
+ 
+  <!-- test for moving the neck such that the kinect points towards a point in map --> 
+  <!--
   <node name="move_group_controller" pkg="boxy_moveit_config" type="kinect_controller.py" respawn="false" output="screen"/>
-  <!--<node name="move_group_planner" pkg="boxy_moveit_config" type="kinect_planner.py" respawn="false" output="screen">
-  </node>-->
+  -->
 
 </launch>
