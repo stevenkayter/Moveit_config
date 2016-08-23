@@ -18,7 +18,8 @@ To run it you must clone __this__ repository, __iai_boxy__ and __iai_robots__. T
 
   This includes the __kinect_planner.py__ from the package boxy_moveit_config, which suscribes to `/desired_pose` and `/desired_joints` to read the target pose or joint state.
   
-  4. __Optional:__ If you want to visualize the robot, launch 
+  4. __Optional:__ If you want to visualize the robot, launch:
+  5. 
         ` roslaunch boxy_moveit_config moveit_rviz.launch `
 
 ### If boxy is already *up*:
@@ -53,8 +54,9 @@ pose:
     x: 0.0
     y: 0.0
     z: 0.0
-    w: 0.0"  --once
+    w: 0.0"  --once 
     ```
+    
     
 __NOTE:__ The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
     
