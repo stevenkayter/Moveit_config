@@ -19,7 +19,7 @@ To run it you must clone __this__ repository, __iai_boxy__ and __iai_robots__. T
   This includes the __kinect_planner.py__ from the package boxy_moveit_config, which suscribes to `/desired_pose` and `/desired_joints` to read the target pose or joint state.
   
   4. __Optional:__ If you want to visualize the robot, launch:
-  5. 
+  
         ` roslaunch boxy_moveit_config moveit_rviz.launch `
 
 ### If boxy is already *up*:
@@ -37,8 +37,7 @@ To run it you must clone __this__ repository, __iai_boxy__ and __iai_robots__. T
 
 To __publish your pose__, send a PoseStamped to `/desired_pose` topic with `pose_target.header.frame_id = 'map'`. 
 Example: 
-
-   ```
+```
   rostopic pub /desired_pose geometry_msgs/PoseStamped "header:
   seq: 0
   stamp:
@@ -55,17 +54,17 @@ pose:
     y: 0.0
     z: 0.0
     w: 0.0"  --once 
-    ```
-    
-    
-__NOTE:__ The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
+```
+   
+ 
+__NOTE__: The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
     
 To publish some desired joint values, send a pose_w_joint message to `/desired_joints` (`from boxy_moveit_config.msg import pose_w_joints`). Example:
 
-  ```
+```
   rostopic pub /desired_joints boxy_moveit_config/pose_w_joints "joint_values:
  [-1.3459999561309814, -1.1160000562667847, -2.121000051498413, 0.8299999833106995, 1.4900000095367432, 0.05000000074505806, 0.0, 0.0, 0.0, 0.0]" --once
-  ```
+```
   
 An example of a pose and a joint state being published is in `kinect_controller.py`:
 
