@@ -73,7 +73,6 @@ def callback_joints(data):
 def move(plan_target):
     global goal
     goal.trajectory = plan_target.joint_trajectory
-    #goal.trajectory.joint_names = JOINT_NAMES
 
 def kinect_planner():
     global fresh_data
@@ -90,7 +89,7 @@ def kinect_planner():
     
     # Instantiate a PlanningSceneInterface object (interface to the world surrounding the robot).
     scene = moveit_commander.PlanningSceneInterface()
-    print "===================== Here 1 ======================="
+    print "Remember to disable firewall if it's not working"
     
     # Instantiate MoveGroupCommander objects for arms and Kinect2. 
     group = moveit_commander.MoveGroupCommander("Kinect2_Target")
@@ -151,22 +150,8 @@ def kinect_planner():
     target_const.position = 0.95
     target_const.tolerance_above = 0.45
     target_const.tolerance_below = 0.05
-    target_const.weight = 0.9
+    target_const.weight = 0.9 # Importance of this constraint
     neck_const.joint_constraints.append(target_const)
-
-    kinect_const = OrientationConstraint()
-    kinect_const.header.frame_id = "base_footprint"
-    kinect_const.link_name = "neck_tool0"
-    kinect_const.orientation.x =  0.373
-    kinect_const.orientation.y = -0.361
-    kinect_const.orientation.z =  0.630
-    kinect_const.orientation.w = -0.578
-    kinect_const.absolute_x_axis_tolerance = 3.14
-    kinect_const.absolute_y_axis_tolerance = 0.450
-    kinect_const.absolute_z_axis_tolerance = 3.14
-    kinect_const.weight = 0.7 # Importance of this constraint
-    neck_const.orientation_constraints.append(kinect_const)
-    #group.set_path_constraints(neck_const)
 
     # Talking to the robot
     client = actionlib.SimpleActionClient('/Kinect2_Target_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
@@ -231,8 +216,8 @@ def kinect_planner():
                     min_plan = min(differ.itervalues())
                     select = [k for k, value in differ.iteritems() if value == min_plan]
                     goal.trajectory = plan_opt[select[0]]
-                    print " Plan difference:========= ", differ
-                    print " Selected plan:=========== ", select[0]
+                    #print " Plan difference:======= ", differ
+                    #print " Selected plan:========= ", select[0]
 
                     # Remove the last 4 names and data from each point (dummy joints) before sending the goal
                     goal.trajectory.joint_names = goal.trajectory.joint_names[:6]
