@@ -6,7 +6,7 @@ tmux - terminal multiplexer
 bring up UR3
 roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_
 
-roslaunch boxy_moveit_config move_group_mine3.launch robot_ip:=192.168.102.62
+roslaunch boxy_moveit_config move_neck.launch robot_ip:=192.168.102.62
 
 in .bashrc add
 	export ROS_MASTER_URI=http://leela.ai.loc:11311
