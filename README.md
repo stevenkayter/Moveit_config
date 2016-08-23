@@ -54,6 +54,7 @@ pose:
     z: 0.0
     w: 0.0"  --once
     ```
+    
     __NOTE:__ The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
     
 To publish some desired joint values, send a pose_w_joint message to `/desired_joints` (`from boxy_moveit_config.msg import pose_w_joints`). Example:
