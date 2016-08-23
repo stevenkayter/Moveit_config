@@ -7,28 +7,29 @@ This package contains the files required to control the UR3 on boxy's head using
 To run it you must clone __this__ repository, __iai_boxy__ and __iai_robots__. The main consideration is checking if boxy is already up or not.
 
 ### If boxy is *down*:
-  - In __move_neck.launch__ from the package boxy_moveit_config, set the argument `bring_up_robot` to `default="true"`.
-  - Bring up the ur3:
+  1. In __move_neck.launch__ from the package boxy_moveit_config, set the argument `bring_up_robot` to `default="true"`.
+  2. Bring up the ur3:
 
         `roslaunch ur_modern_driver ur3_bringup.launch  robot_ip:=192.168.102.62 prefix:=neck_`
 
-  - Launch __move_neck.launch__.
+  3. Launch __move_neck.launch__.
   
         ` roslaunch boxy_moveit_config move_neck.launch robot_ip:=192.168.102.62 `
 
   This includes the __kinect_planner.py__ from the package boxy_moveit_config, which suscribes to `/desired_pose` and `/desired_joints` to read the target pose or joint state.
   
-  - __Optional:__ If you want to visualize the robot, launch 
+  4. __Optional:__ If you want to visualize the robot, launch 
         ` roslaunch boxy_moveit_config moveit_rviz.launch `
 
 ### If boxy is already *up*:
-  - In `move_neck.launch`: modify `arg name="bring_up_robot"` to `default="false"`
-  - Launch __move_neck.launch__.
+  1. In `move_neck.launch`: modify `arg name="bring_up_robot"` to `default="false"`
+  2. Launch __move_neck.launch__.
   
         ` roslaunch boxy_moveit_config move_neck.launch robot_ip:=192.168.102.62 `
 
-  - __Optional:__ If you want to visualize the robot, launch 
-        ` roslaunch boxy_moveit_config moveit_rviz.launch 
+  3. __Optional:__ If you want to visualize the robot, launch:
+  
+        ` roslaunch boxy_moveit_config moveit_rviz.launch `
 
 
 ## Publish your desired pose or joint state
@@ -55,7 +56,7 @@ pose:
     w: 0.0"  --once
     ```
     
-    __NOTE:__ The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
+__NOTE:__ The `frame_id` should be set to `base_footprint` when boxy is down to and `map` when it's up.
     
 To publish some desired joint values, send a pose_w_joint message to `/desired_joints` (`from boxy_moveit_config.msg import pose_w_joints`). Example:
 
@@ -65,6 +66,7 @@ To publish some desired joint values, send a pose_w_joint message to `/desired_j
   ```
   
 An example of a pose and a joint state being published is in `kinect_controller.py`:
+
         ` rosrun boxy_moveit_config kinect_controller.py `
 
 
