@@ -63,7 +63,7 @@ To publish some desired joint values, send a pose_w_joint message to `/desired_j
 
 ```
   rostopic pub /desired_joints boxy_moveit_config/pose_w_joints "joint_values:
- [-1.3459999561309814, -1.1160000562667847, -2.121000051498413, 0.8299999833106995, 1.4900000095367432, 0.05000000074505806, 0.0, 0.0, 0.0, 0.0]" --once
+ [-1.34, -1.11, -2.12, 0.82, 1.49, 0.05, 0.0, 0.0, 0.0, 0.0]" --once
 ```
   
 An example of a pose and a joint state being published is in `kinect_controller.py`:
