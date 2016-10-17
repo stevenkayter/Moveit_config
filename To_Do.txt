@@ -31,6 +31,8 @@ UR3 is listening to the topics:
  - tool holders
 
 
+Update firmware of UR3, and controllers
+
 ----------- STOP FIREWALL -----
 sudo service ufw stop
 
